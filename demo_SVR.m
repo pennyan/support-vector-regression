@@ -33,6 +33,7 @@ ylabel('y');
 title('Default options: \epsilon=1.0 solved with SGD on primal');
 
 %% Test primal method with SGD
+options = [];
 options.method = 'SGDPrimal';
 options.epsilon = 2.0;
 [model_SVR] = matLearn_regression_SVR(Xtrain,ytrain, options);
@@ -60,6 +61,7 @@ ylabel('y');
 title('User configuration: \epsilon=2.0 solved with SGD on primal');
 
 %% Test primal method with smoothness
+options = [];
 options.method = 'SmoothPrimal';
 options.epsilon = 2.0;
 [model_SVR] = matLearn_regression_SVR(Xtrain,ytrain, options);
@@ -91,6 +93,7 @@ clear all
 load data_SVR.mat
 
 % Test primal method with smoothness, rbfKernel
+options = [];
 options.method = 'SmoothPrimalKernel';
 options.epsilon = 0.1;
 % I'm parameterizing X1 and X2 to make it useful for 
@@ -120,6 +123,7 @@ ylabel('y');
 title('User configuration: \epsilon=0.1 modeled with rbfKernel on smoothed primal');
 
 %% Test primal method with smoothness, polyKernel
+options = [];
 options.method = 'SmoothPrimalKernel';
 options.epsilon = 0.1;
 options.kFunc = @(X1,X2)polyKernel(X1,X2,1,9);
