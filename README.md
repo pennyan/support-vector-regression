@@ -2,6 +2,8 @@ machine-learning coding project
 support vector regression
 ================
 
+Run script demo_SVR.m to see the test results.
+
 I implemented three solvers for support vector regression
 
 1. Stochastic gradient descent for primal problem.
@@ -9,6 +11,7 @@ I implemented three solvers for support vector regression
 3. Optimization for smoothed primal problem using kernel trick (non-convex).
 
 Value Added:
+
 1. I did both the original primal problem and the smoothed version.
 2. I implemented stochastic gradient descent on original problem and used quadratic programmming on the smoothed primal.
 3. I kernelized the primal problem. Test cases are using rbfKernel and polyKernel.
