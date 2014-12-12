@@ -1,0 +1,22 @@
+>> demo_SVR
+Support vector regression by SGDPrimal...
+Initial function value: 7345.175770
+Optimized function value: 585.506769
+Averaged absolute test error with Support vector regression by SGDPrimal is: 0.825
+
+Support vector regression by SGDPrimal...
+Initial function value: 4437.625211
+Optimized function value: 52.113461
+Averaged absolute test error with Support vector regression by SGDPrimal is: 0.828
+
+Support vector regression by SmoothPrimal...
+Optimized function value: 49.149343
+Averaged absolute test error with Support vector regression by SmoothPrimal is: 0.837
+
+Support vector regression by SmoothPrimal, kernelized...
+Optimized function value: 3.612262
+Averaged absolute test error with Support vector regression by SmoothPrimalKernel is: 0.073
+
+Support vector regression by SmoothPrimal, kernelized...
+Optimized function value: 19.230925
+Averaged absolute test error with Support vector regression by SmoothPrimalKernel is: 0.077

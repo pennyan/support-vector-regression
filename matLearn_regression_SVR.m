@@ -13,8 +13,6 @@ function [model] = matLearn_regression_SVR(X,y,options)
 %   - method:    'SGDPrimal'          - solve the primal problem with SGD
 %                'SmoothPrimal'       - solve the smoothed primal quadratic
 %                                       programming problem
-%                'SGDPrimalKernel'    - solve the primal problem with SGD,
-%                                       kernelized
 %                'SmoothPrimalKernel' - solve the smoothed primal quadratic
 %                                       programming problem, kernelized
 %                (default: 'SGDPrimal')
@@ -62,17 +60,6 @@ elseif (strcmp(method,'SmoothPrimal'))
     p.epsilon = epsilon;
     % train primal problem with smoothness
     [model] = SmoothPrimal(X,y, p);
-elseif (strcmp(method,'SGDPrimalKernel')) 
-    % setup parameters
-    p.method = method;
-    p.C = C;
-    p.lambda = lambda; 
-    p.epsilon = epsilon;
-    p.maxIter = maxIter;
-    p.threshold = threshold;
-    p.kFunc = kFunc;
-    % train primal problem with SGD, kernelized
-    [model] = SGDPrimalKernel(X,y, p);
 elseif (strcmp(method,'SmoothPrimalKernel')) 
     % setup parameters
     p.method = method;
@@ -223,77 +210,8 @@ w = wv(1:nTrain);
 fprintf('Optimized function value: %f\n',FVAL);
 
 % Setup model.
-model.name = 'Support vector regression by SmoothPrimal';
+model.name = 'Support vector regression by SmoothPrimalKernel';
 model.w = w;
-model.epsilon = p.epsilon;
-model.kFunc = @(Xhat)p.kFunc(Xhat,X(:,2));
-model.supportVector = abs(K*model.w - y) >= model.epsilon;
-model.predict = @predictKernel;
-end
-
-%% Using stochastic gradient descent to solve the primal,
-%   kernelized.
-function [model] = SGDPrimalKernel(X,y, p)
-% Calculate kernel matrix
-K = p.kFunc(X,X);
-% Add a bias variable
-nTrain = size(X,1);
-X = [ones(nTrain,1) X];
-% Initial value of v
-v = zeros(nTrain,1);
-
-% Evaluate function and gradient at initial point
-fprintf('Support vector regression by SGDPrimal, kernelized...\n');
-f = p.C*sum(max(0,abs(y-K*v)-p.epsilon)) + p.lambda*(v'*K*v)/2;
-fprintf('Initial function value: %f\n',f);
-
-% Optimize primal problem using stochastic gradient descent method
-iter = 0;
-v_old = ones(nTrain,1)*Inf;
-% Check if the difference between successive w is small enough.
-% Also adding iter < p.maxIter/10 to ensure I have at least went through
-% that many iterations.
-while abs(sum(v_old - v)) > p.threshold || iter < p.maxIter/10
-    iter = iter + 1;
-    v_old = v;
-    % Choose a random integer between 1 and N
-    i = ceil(nTrain*rand);
-    
-    % Compute a subgradient with respect to example i
-    tmp1 = v(i)*K(:,i);
-    tmp2 = v.*K(:,i);
-    tmp = tmp1;
-    tmp(i) = tmp(i)+sum(tmp2);
-    g = p.lambda/2*tmp;
-    if (abs((v'*K(:,i))-y(i)) <= p.epsilon)
-        sg = g;
-    elseif ( y(i)-(v'*K(:,i)) > 0 )
-        sg = -p.C*K(:,i)+g;
-    else
-        sg = +p.C*K(:,i)+g;
-    end
-    
-    % Step size update
-    alpha = p.C/iter;
-    
-    % Update parameters
-    v = v - alpha*sg;
-    
-    % Check if exceed maximum iterations
-    if (iter > p.maxIter)
-        fprintf('Maximum iterations...\n');
-        break;
-    end
-    
-end
-
-% Evaluate function and gradient at ending point
-f = p.C*sum(max(0,abs(y-K*v)-p.epsilon)) + p.lambda*(v'*K*v)/2;
-fprintf('Optimized function value: %f\n',f);
-
-% Setup model.
-model.name = 'Support vector regression by SGDPrimal, kernelized';
-model.w = v;
 model.epsilon = p.epsilon;
 model.kFunc = @(Xhat)p.kFunc(Xhat,X(:,2));
 model.supportVector = abs(K*model.w - y) >= model.epsilon;
