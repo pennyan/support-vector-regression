@@ -93,7 +93,9 @@ load data_SVR.mat
 % Test primal method with smoothness, rbfKernel
 options.method = 'SmoothPrimalKernel';
 options.epsilon = 0.1;
-options.kFunc = @(X1,X2)rbfKernel(X1,X2,1);
+% I'm parameterizing X1 and X2 to make it useful for 
+% both Xtrain'*Xtrain and Xtest'*Xtrain
+options.kFunc = @(X1,X2)rbfKernel(X1,X2,1); 
 [model_SVR] = matLearn_regression_SVR(Xtrain,ytrain, options);
 
 %% Test SVR model

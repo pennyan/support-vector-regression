@@ -42,30 +42,23 @@ function [model] = matLearn_regression_SVR(X,y,options)
                                 'threshold', 1e-5                    ...
                                 );
                             
+% setup parameters
+p.method = method;
+p.C = C;
+p.lambda = lambda; 
+p.epsilon = epsilon;
+
 if (strcmp(method,'SGDPrimal')) 
-    % setup parameters
-    p.method = method;
-    p.C = C;
-    p.lambda = lambda; 
-    p.epsilon = epsilon;
+    % setting up maxIter and threshold for SGD
     p.maxIter = maxIter;
     p.threshold = threshold;
     % train primal problem with SGD
     [model] = SGDPrimal(X,y, p);
 elseif (strcmp(method,'SmoothPrimal')) 
-    % setup parameters
-    p.method = method;
-    p.C = C;
-    p.lambda = lambda; 
-    p.epsilon = epsilon;
     % train primal problem with smoothness
     [model] = SmoothPrimal(X,y, p);
 elseif (strcmp(method,'SmoothPrimalKernel')) 
-    % setup parameters
-    p.method = method;
-    p.C = C;
-    p.lambda = lambda; 
-    p.epsilon = epsilon;
+    % setting up kernel function
     p.kFunc = kFunc;
     % train primal problem with smoothness, kernelized
     [model] = SmoothPrimalKernel(X,y, p);
