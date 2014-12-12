@@ -15,6 +15,7 @@ Value Added:
 1. I did both the original primal problem and the smoothed version.
 2. I implemented stochastic gradient descent on original problem and used quadratic programmming on the smoothed primal.
 3. I kernelized the primal problem. Test cases are using rbfKernel and polyKernel.
+4. I added two stopping criterion for SGD to make it more robust.
 
 Collaboration:
 Pending...
