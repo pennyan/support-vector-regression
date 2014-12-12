@@ -19,3 +19,8 @@ Value Added:
 
 Collaboration:
 Pending...
+
+Possible future work:
+
+1. Rederive the dual and see what went wrong. I'm still doubting whether I can do coordinate ascent on dual SVR or not.
+2. L1 regularization instead of L2.
