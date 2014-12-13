@@ -39,7 +39,7 @@ plot(Xtest(ind), yhatSVR(ind)-SVR.epsilon, 'b--');  %chaged yhat =yhatSVR
 legend({'Data',SVR.name,HuberLoss.name,'Support vectors','\epsilon-insensitive tube'});
 xlabel('X');
 ylabel('y');
-title('User configured: \epsilon=2.0 solved with quadratic programming on smoothed primal');
+title('Comparing Huberloss and SVR on good dataset');
 
 %% ====================================================
 %% Model with outliers
@@ -62,7 +62,7 @@ yhatSVR = model_SVR.predict(model_SVR,Xtest);
 testErrorHuber = mean(abs(yhatHuber-ytest));
 testErrorSVR = mean(abs(yhatSVR-ytest));
 fprintf('Averaged absolute test error with %s is: %.3f\n',HuberLoss.name,testErrorHuber);
-fprintf('Averaged absolute test error with %s is: %.3f\n',model_SVR.name,testErrorSVR);
+fprintf('Averaged absolute test error with %s is: %.3f\n\n',model_SVR.name,testErrorSVR);
 
 %% Plot the performance of both models
 plotRegression1D(Xtrain,ytrain,model_SVR,HuberLoss);
@@ -76,7 +76,7 @@ plot(Xtest(ind), yhatSVR(ind)-model_SVR.epsilon, 'b--');
 legend({'Data',model_SVR.name,HuberLoss.name,'Support vectors','\epsilon-insensitive tube'});
 xlabel('X');
 ylabel('y');
-title('User configured: \epsilon=2.0 solved with quadratic programming on smoothed primal');
+title('Comparing Huberloss and SVR on outlier dataset');
 
 %% ====================================================
 %% When bad parameters are chosen for both
@@ -110,4 +110,4 @@ plot(Xtest(ind), yhatSVR(ind)-model_SVR.epsilon, 'b--');
 legend({'Data',model_SVR.name,HuberLoss.name,'Support vectors','\epsilon-insensitive tube'});
 xlabel('X');
 ylabel('y');
-title('User configured: \epsilon=2.0 solved with quadratic programming on smoothed primal');
+title('Comparing Huberloss and SVR on outlier dataset using bad parameters');
