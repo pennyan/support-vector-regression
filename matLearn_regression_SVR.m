@@ -84,7 +84,7 @@ LB = -Inf*ones(nFeatures+nTrain,1);
 UB = Inf*ones(nFeatures+nTrain,1);
 
 % Call quadprog to solve the problem
-fprintf('Support vector regression by SmoothPrimal...\n');
+%fprintf('Support vector regression by SmoothPrimal...\n');
 options = optimoptions(@quadprog,'MaxIter',5000,...
                                  'Algorithm','interior-point-convex',...
                                  'Display', 'off');
@@ -93,7 +93,7 @@ w0 = UB;
 w = wv(1:nFeatures);
 
 % Optimal funtion value
-fprintf('Optimized function value: %f\n',FVAL);
+%fprintf('Optimized function value: %f\n',FVAL);
 
 % Setup model.
 model.name = 'Support vector regression by SmoothPrimal';
@@ -113,9 +113,9 @@ nFeatures = size(X,2);
 w = zeros(nFeatures,1);
 
 % Evaluate function and gradient at initial point
-fprintf('Support vector regression by SGDPrimal...\n');
+%fprintf('Support vector regression by SGDPrimal...\n');
 f = p.C*sum(max(0,abs(y-X*w)-p.epsilon)) + p.lambda*(w'*w)/2;
-fprintf('Initial function value: %f\n',f);
+%fprintf('Initial function value: %f\n',f);
 
 % Matlab stores sparse vectors as columns, so when accessing individual
 % rows it is much faster to work with X^T
@@ -157,7 +157,7 @@ end
 
 % Evaluate function and gradient at ending point
 f = p.C*sum(max(0,abs(y-X*w)-p.epsilon)) + p.lambda*(w'*w)/2;
-fprintf('Optimized function value: %f\n',f);
+%fprintf('Optimized function value: %f\n',f);
 
 % Setup model.
 model.name = 'Support vector regression by SGDPrimal';
@@ -190,7 +190,7 @@ LB = -Inf*ones(nTrain+nTrain,1);
 UB = Inf*ones(nTrain+nTrain,1);
 
 % Call quadprog to solve the problem
-fprintf('Support vector regression by SmoothPrimal, kernelized...\n');
+%fprintf('Support vector regression by SmoothPrimal, kernelized...\n');
 options = optimoptions(@fmincon,'MaxIter',5000,...
                                 'Algorithm','interior-point', ...
                                 'Display','off' ...
@@ -200,7 +200,7 @@ w0 = zeros(nTrain*2,1);
 w = wv(1:nTrain);
 
 % Optimal funtion value
-fprintf('Optimized function value: %f\n',FVAL);
+%fprintf('Optimized function value: %f\n',FVAL);
 
 % Setup model.
 model.name = 'Support vector regression by SmoothPrimalKernel';
