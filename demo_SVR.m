@@ -3,7 +3,8 @@ close all
 
 %% ------------------- Linear -------------------- %%
 %% Load synthetic {Xtrain,ytrain} and {Xtest,ytest}
-load data_regressOnOne.mat
+%load data_regressOnOne.mat
+load data_SVR_outlier.mat
 
 %% Call matLearn_regression_SVR to train the weight
 %% Test with default options
