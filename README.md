@@ -19,6 +19,7 @@ Value Added:
 4. I added two stopping criterion for SGD to make it more robust.
 
 Collaboration:
+
 I collaborated with Adrian who is working on Huberloss regression. The comparison results show the similarities between 
 the two methods. When bad parameters are chosen, they are both sensitive to outliers. But they both can always be tuned
 using cross validation to get a much better result. The difference is that Huberloss is by essence more insensitive to 
