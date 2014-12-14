@@ -24,6 +24,9 @@ yhatSVR = SVR.predict(SVR,Xtest);
 % Measure test error
 testErrorHuber = mean(abs(yhatHuber-ytest));
 testErrorSVR = mean(abs(yhatSVR-ytest));
+fprintf('This dataset does not have any outliers. So the Huber Loss, \n');
+fprintf('and Support Vector Regression simliar training models\n\n');
+
 fprintf('Averaged absolute test error with %s is: %.3f\n',HuberLoss.name,testErrorHuber);
 fprintf('Averaged absolute test error with %s is: %.3f\n\n',SVR.name,testErrorSVR);
 
@@ -61,6 +64,9 @@ yhatSVR = model_SVR.predict(model_SVR,Xtest);
 % Measure test error
 testErrorHuber = mean(abs(yhatHuber-ytest));
 testErrorSVR = mean(abs(yhatSVR-ytest));
+fprintf('This dataset has a lot of outliers. So the Huber and Support Vector Regression \n');
+fprintf('simliar training models only when the parameters for the Huber model and \n');
+fprintf('Support Vector Regression have been tweeked. \n\n');
 fprintf('Averaged absolute test error with %s is: %.3f\n',HuberLoss.name,testErrorHuber);
 fprintf('Averaged absolute test error with %s is: %.3f\n\n',model_SVR.name,testErrorSVR);
 
@@ -95,6 +101,8 @@ yhatSVR = model_SVR.predict(model_SVR,Xtest);
 % Measure test error
 testErrorHuber = mean(abs(yhatHuber-ytest));
 testErrorSVR = mean(abs(yhatSVR-ytest));
+fprintf('When the parameters of the Huber Loss and Support Vector Regression \n');
+fprintf('have not been tuned then the models are more affected by outliers \n\n');
 fprintf('Averaged absolute test error with %s is: %.3f\n',HuberLoss.name,testErrorHuber);
 fprintf('Averaged absolute test error with %s is: %.3f\n',model_SVR.name,testErrorSVR);
 
